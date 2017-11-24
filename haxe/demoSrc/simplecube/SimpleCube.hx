@@ -113,7 +113,7 @@ class SimpleCube extends Part
 				playah = savedPlayer[0];
 			}
 			if (!playah.moving && playah.position.x != p.position.x || playah.position.y != p.position.y || playah.position.z != p.position.z){
-				
+				Tween.removeTweens(playah.position);
 				playah.moving = true;
 				Tween.get(playah.position).to({x:p.position.x, y:p.position.y, z:p.position.z}, cast tickSpeed * 0.7, Ease.quadInOut).call(function (pll:Dynamic){pll.moving = false;});
 			}
@@ -130,6 +130,7 @@ class SimpleCube extends Part
 		if (!setupDone){
 			setup(CubeData.setup);	
 		}
+		tickSpeed = CubeData.setup.speed;
 		initPlayers(CubeData.players);
 		
 		
@@ -138,7 +139,7 @@ class SimpleCube extends Part
 			var b:BombV = bombs[bomb.x][bomb.y][bomb.z];
 			if (b == null)
 			{
-				b = new BombV();
+				b = new BombV(tickSpeed);
 				this.itemContainer.add(b);
 				b.x = bomb.x;
 				b.y = bomb.y;
@@ -154,7 +155,7 @@ class SimpleCube extends Part
 		var remove:Array<BombV> = [];
 		for ( b in active)
 		{
-			var isok:Bool = CubeData.bombs.filter(function(bd:Bomb):Bool { return bd.x == b.x && bd.y == b.y && bd.z == bd.z; } ).length > 0;
+			var isok:Bool = CubeData.bombs.filter(function(bd:Bomb):Bool { return bd.x == b.x && bd.y == b.y && bd.z == b.z; } ).length > 0;
 			if (!isok)
 				remove.push(b);
 		}
@@ -166,6 +167,11 @@ class SimpleCube extends Part
 		}
 		this.postProcessing.distortedTV.offsetAmount = 10 * explosions;
 		explosions /= 1.2;
+		
+		var time:Float = Date.now().getTime() / 1000;
+		this.camera.position.x = Math.sin(time)*CubeData.setup.edgeLength;
+		this.camera.position.z = Math.cos(time)*CubeData.setup.edgeLength;
+		this.camera.lookAt(new Vector3());
 	}
 	
 	

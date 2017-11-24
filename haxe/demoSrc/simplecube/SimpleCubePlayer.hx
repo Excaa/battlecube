@@ -19,7 +19,7 @@ class SimpleCubePlayer extends Object3D
 	{
 		super();
 		PlayerName = p.name;
-		var playermesh = new Mesh(new SphereGeometry(1), new MeshBasicMaterial({color:cast p.color}));
+		var playermesh = new Mesh(new SphereGeometry(0.75), new MeshBasicMaterial({color:cast p.color}));
 		this.add(playermesh);
 	}
 	
