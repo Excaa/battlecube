@@ -7,6 +7,7 @@ import js.three.BoxGeometry;
 import js.three.Geometry;
 import js.three.Mesh;
 import js.three.MeshBasicMaterial;
+import js.three.Object3D;
 import js.three.Vector3;
 import wl.core.Part;
 import wl.core.TimeSig;
@@ -27,6 +28,9 @@ class SimpleCube extends Part
 	
 	private var bombs:Array<Array<Array<BombV>>> = [];
 	private var active:Array<BombV> = [];
+	
+	private var explosions:Float = 0;
+	private var itemContainer:Object3D;
 	
 	public function new() 
 	{
@@ -50,6 +54,14 @@ class SimpleCube extends Part
 	
 	private function setup(setupdata:Setup):Void{
 		trace("setup");
+		var size:Int = CubeData.setup.edgeLength;
+		var cube:Mesh = new Mesh(new BoxGeometry(size,size,size), new MeshBasicMaterial( { wireframe:true, color:0xffffff } ));
+		this.itemContainer = new Object3D();
+		itemContainer.position.x = -size / 2;
+		itemContainer.position.y = -size / 2;
+		itemContainer.position.z = -size / 2;
+		this.scene.add(itemContainer);
+		this.scene.add(cube);
 		var gridsize = setupdata.edgeLength;
 		var gridMat = new MeshBasicMaterial({color:0xff0000, wireframe:true});
 		var gridGeo = new BoxGeometry(1, 1, 1);
@@ -62,7 +74,6 @@ class SimpleCube extends Part
 				}
 			}
 		}
-		var size:Int = CubeData.setup.edgeLength;
 		for ( i in 0...size)
 		{
 			bombs[i] = [];
@@ -75,11 +86,12 @@ class SimpleCube extends Part
 				}
 			}
 		}
-		
-		this.camera.position.z = -gridsize * 3;
-		this.camera.position.x = 4;
-		this.camera.position.y = 4;
-		this.camera.lookAt(new Vector3(4,4,0));
+		this.camera.fov = 60;
+		this.camera.updateProjectionMatrix();
+		this.camera.position.z = gridsize * 1;
+		this.camera.position.x = 0;
+		this.camera.position.y = gridsize * 1;
+		this.camera.lookAt(new Vector3(0,0,0));
 		
 		tickSpeed = setupdata.speed;
 		setupDone = true;
@@ -94,7 +106,7 @@ class SimpleCube extends Part
 				var newPlayer = new SimpleCubePlayer(p);
 				newPlayer.position.set(p.position.x, p.position.y, p.position.z);
 				players.push(newPlayer);
-				this.scene.add(newPlayer);
+				this.itemContainer.add(newPlayer);
 				playah = newPlayer;
 			}
 			else{
@@ -127,7 +139,7 @@ class SimpleCube extends Part
 			if (b == null)
 			{
 				b = new BombV();
-				this.scene.add(b);
+				this.itemContainer.add(b);
 				b.x = bomb.x;
 				b.y = bomb.y;
 				b.z = bomb.z;
@@ -150,8 +162,10 @@ class SimpleCube extends Part
 		{
 			active.remove(b);
 			b.explode();
+			explosions += 1;
 		}
-		
+		this.postProcessing.distortedTV.offsetAmount = 10 * explosions;
+		explosions /= 1.2;
 	}
 	
 	
