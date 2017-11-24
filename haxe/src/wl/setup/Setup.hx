@@ -63,8 +63,8 @@ class Setup
 				var w:Float = Math.min(Browser.window.innerWidth, Browser.window.innerHeight);
 			Graphics.instance.canvas.style.left = "0px";
 			Graphics.instance.canvas.style.bottom = "0px";
-			Graphics.instance.canvas.style.width = w;
-			Graphics.instance.canvas.style.height = w;
+			Graphics.instance.canvas.style.width = w+"px";
+			Graphics.instance.canvas.style.height = w+"px";
 			
 			
 					untyped Graphics.instance.canvas.width = w;
