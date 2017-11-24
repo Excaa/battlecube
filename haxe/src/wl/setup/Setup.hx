@@ -9,6 +9,7 @@ import js.jquery.JQuery;
 import wl.core.Assets;
 import wl.core.Config;
 import wl.core.Demo;
+import wl.core.Graphics;
 
 /**
  * ...
@@ -47,38 +48,34 @@ class Setup
 		untyped Browser.window.DEMO_CANVAS = demo.graphics.canvas;
 		var demodiv:Element = Browser.document.getElementById("cube-container");
 		demodiv.appendChild(demo.graphics.canvas);
+		demo.graphics.canvas.addEventListener("click", fullScreenClickHandler);
 	}
 	private static var loadImg:Image;
 	
 	private static function fullScreenClickHandler(e:Event):Void
 	{
-		/*
+		
 		hideSetup();
 		try
 		{
-			demoDiv[0].requestFullscreen();
+			Graphics.instance.canvas.requestFullscreen();
+			Timer.delay(function() {
+				var w:Float = Math.min(Browser.window.innerWidth, Browser.window.innerHeight);
+			Graphics.instance.canvas.style.left = "0px";
+			Graphics.instance.canvas.style.bottom = "0px";
+			Graphics.instance.canvas.style.width = w;
+			Graphics.instance.canvas.style.height = w;
+			
+			
+					untyped Graphics.instance.canvas.width = w;
+		untyped Graphics.instance.canvas.height =w;
+		Graphics.instance.renderer.setViewport(0, 0,w,w);
+			},50);
 		}
 		catch (e:Dynamic)
 		{
 			throw "Full screen could not be initialized. Please reload and try again.";
 		}
-		
-		//Fit to screen
-		var w:Int = Browser.window.screen.width;
-		var h:Int = Browser.window.screen.height;	
-
-		var ratio = Config.RATIO;
-		var lockAspect = new JQuery("#aspectLock input").val()=="on";
-		if(lockAspect && w*1/ratio < h)
-			h = cast w*720/1280
-		else if(lockAspect && h<w*1/ratio)
-			w = cast h * 1280 / 720;
-		Config.RESOLUTION[0] = Math.floor(w);
-		Config.RESOLUTION[1] = Math.floor(h);
-		demoDiv.css("background", "black");
-		
-		//Delay start for the message to go away
-		Timer.delay(startRun, 5000);*/
 	}
 	private static function startClickHandler(e:Event):Void
 	{
@@ -113,7 +110,6 @@ class Setup
 		}
 		Config.RESOLUTION[0] = 720;
 		Config.RESOLUTION[1] = 720;
-		
 		
 		Timer.delay(startRun, 50);
 	}
