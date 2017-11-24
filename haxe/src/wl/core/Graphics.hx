@@ -37,7 +37,6 @@ class Graphics
 	
 	public function new(?container:Element) 
 	{
-		this.container = container;
 		
 		if (instance == null) instance = this;
 		else trace("Creating multiple Graphics instances. Are you sure?");

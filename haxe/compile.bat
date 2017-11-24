@@ -2,7 +2,7 @@ haxe ^
 -cp externs ^
 -cp src ^
 -cp demoSrc ^
--js bin/engine.js ^
+-js ../client/static/demobin/engine.js ^
 -D threejs-noEmbed ^
 -main Main ^
 -resource src/wl/post/dof/dof.frag@dof.frag ^

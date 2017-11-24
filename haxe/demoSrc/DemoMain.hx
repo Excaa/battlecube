@@ -58,7 +58,7 @@ class DemoMain
 		Config.MUSIC_BEGIN = 0;
 		Config.FPS = -1;
 		Config.ENABLE_SHADOWS = true;
-		Config.DEBUG = true;
+		Config.DEBUG = false;
 		Config.CLEAR_COLOR = 0;
 		Config.SHADOW_MAP_SIZE = [2048,2048];
 		
