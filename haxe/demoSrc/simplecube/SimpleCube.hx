@@ -35,6 +35,7 @@ class SimpleCube extends Part
 	private var explosions:Float = 0;
 	private var itemContainer:Object3D;
 	private var resetSuccesfull:Bool = true;
+	private var resetTimer:Int = 0;
 	
 	public function new() 
 	{
@@ -99,6 +100,7 @@ class SimpleCube extends Part
 		
 		tickSpeed = setupdata.speed;
 		setupDone = true;
+		
 	}
 	
 	private function initPlayers(inputPlayers:Array<Player>){
@@ -131,8 +133,8 @@ class SimpleCube extends Part
 	
 	public override function update(ts:TimeSig, partial:Float, frameTime:Float, delta:Float):Void {
 		super.update(ts, partial, frameTime, delta);
-		
-		if (CubeData == null || !resetSuccesfull) return;
+		resetTimer--;
+		if (CubeData == null || !resetSuccesfull || resetTimer > 0) return;
 		if (!setupDone){
 			setup(CubeData.setup);	
 		}
@@ -195,6 +197,7 @@ class SimpleCube extends Part
 		players = [];
 		setupDone = false;
 		resetSuccesfull = true;
+		resetTimer = 10;
 	}
 	
 	override public function render(ts:TimeSig, frameTime:Float):Void {
