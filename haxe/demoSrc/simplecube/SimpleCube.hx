@@ -4,6 +4,7 @@ import blank.BombV;
 import createjs.tweenjs.Ease;
 import createjs.tweenjs.Tween;
 import haxe.ds.Vector;
+import js.Browser;
 import js.three.BoxGeometry;
 import js.three.Geometry;
 import js.three.Mesh;
@@ -127,11 +128,11 @@ class SimpleCube extends Part
 			
 		}
 	}
+	private var curtick:Float;
 	
 	public override function update(ts:TimeSig, partial:Float, frameTime:Float, delta:Float):Void {
 		
 		super.update(ts, partial, frameTime, delta);
-		
 		if (CubeData == null || !resetSuccesfull) return;
 		if (!setupDone){
 			setup(CubeData.setup);	
@@ -139,6 +140,14 @@ class SimpleCube extends Part
 		tickSpeed = CubeData.setup.speed;
 		initPlayers(CubeData.players);
 		
+		if (untyped Browser.window.TICK != curtick)
+		{
+			this.postProcessing.rgbShift.bshift = 0.05;
+			this.postProcessing.rgbShift.gshift = -0.05;
+			this.curtick = untyped Browser.window.TICK;
+			Tween.get(this.postProcessing.rgbShift.uniforms.bshift).to( { value:0 }, CubeData.setup.speed * 0.25);
+			Tween.get(this.postProcessing.rgbShift.uniforms.gshift).to( { value:0 }, CubeData.setup.speed * 0.25);
+		}
 		
 		for ( bomb in CubeData.bombs)
 		{
