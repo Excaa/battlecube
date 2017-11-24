@@ -1,3 +1,4 @@
+import haxe.macro.Expr.Position;
 
 /**
  * ...
@@ -18,6 +19,12 @@ typedef Player = {
 	public var status:Int;
 	public var score:Int;
 	public var wins:Int;
+	public var position:Position;
+}
+typedef Position = {
+	public var x:Int;
+	public var y:Int;
+	public var z:Int;
 }
 
 typedef Bomb = {
