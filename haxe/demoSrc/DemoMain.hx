@@ -14,6 +14,7 @@ import js.three.Ray;
 import js.three.TextureDataType;
 import js.three.TextureFilter;
 import js.three.Wrapping;
+import simplecube.SimpleCube;
 import wl.core.Config;
 import wl.core.Demo;
 import wl.core.Part;
@@ -65,7 +66,7 @@ class DemoMain
 		Config.ENABLE_FFT = true;
 
 		Config.TIMELINE = [
-			new TimeLine(new Blank(), new TimeSig(0), new TimeSig(0), "blank", true),
+			new TimeLine(new SimpleCube(), new TimeSig(0), new TimeSig(0), "blank", true),
 		];
 		/**/
 		//Load font
