@@ -65,6 +65,10 @@ class Graphics
 		this.renderer.setSize( Config.RESOLUTION[0], Config.RESOLUTION[1], true);
 		this.canvas = this.renderer.domElement;
 		this.canvas.id = "demoCanvas";
+		this.canvas.style.position = "fixed";
+		this.canvas.style.top = "0px";
+		this.canvas.style.right = "0px";
+		this.canvas.style.float = "left";
 		this.depthMaterial = new MeshDepthMaterial();
 	}
 	

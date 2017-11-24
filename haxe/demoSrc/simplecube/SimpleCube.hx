@@ -146,14 +146,20 @@ class SimpleCube extends Part
 		{
 			trace("SET TICK");
 			this.postProcessing.bloom.strength = 5;
-			this.postProcessing.rgbShift.uniforms.bshift.value = 0.03;
-			this.postProcessing.rgbShift.uniforms.gshift.value = -0.03;
+			this.postProcessing.rgbShift.uniforms.bshift.value = 0.02;
+			this.postProcessing.rgbShift.uniforms.gshift.value = -0.02;
 			this.curtick = untyped Browser.window.TICK;
-			var time:Float = CubeData.setup.speed;
-			Tween.get(this.postProcessing.rgbShift.uniforms.bshift).to( { value:0 }, time);
-			Tween.get(this.postProcessing.rgbShift.uniforms.gshift).to( { value:0 }, time );
-			Tween.get(this.postProcessing.bloom).to( { strength:0.5 }, time);
+			var time:Float = 200;// CubeData.setup.speed;
+			//Tween.get(this.postProcessing.rgbShift.uniforms.bshift).to( { value:0 }, time);
+			//Tween.get(this.postProcessing.rgbShift.uniforms.gshift).to( { value:0 }, time );
+			//Tween.get(this.postProcessing.bloom).to( { strength:0.5 }, time);
 		}
+		this.postProcessing.rgbShift.gshift /= 1.2;
+		this.postProcessing.rgbShift.bshift /= 1.2;
+		this.postProcessing.bloom.strength /= 1.2;
+		if (this.postProcessing.bloom.strength < 1)
+			this.postProcessing.bloom.strength = 1;
+		
 		
 		for ( bomb in CubeData.bombs)
 		{
