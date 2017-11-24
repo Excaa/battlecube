@@ -66,8 +66,8 @@ class Graphics
 		this.canvas = this.renderer.domElement;
 		this.canvas.id = "demoCanvas";
 		this.canvas.style.position = "fixed";
-		this.canvas.style.top = "0px";
-		this.canvas.style.right = "0px";
+		this.canvas.style.top = "20px";
+		this.canvas.style.right = "20px";
 		this.canvas.style.float = "left";
 		this.depthMaterial = new MeshDepthMaterial();
 	}
