@@ -4,6 +4,7 @@ import js.Browser;
 import js.html.Element;
 import js.html.Image;
 import js.html.ImageElement;
+import js.html.Window;
 import js.jquery.Event;
 import js.jquery.JQuery;
 import wl.core.Assets;
@@ -18,7 +19,7 @@ import wl.core.Graphics;
 class Setup
 {
 	private static var demo:Demo;
-	
+	private static var inFullScreen:Bool;
 	
 	public function new() 
 	{
@@ -58,10 +59,11 @@ class Setup
 		hideSetup();
 		try
 		{
+			
 			Graphics.instance.canvas.requestFullscreen();
 			Timer.delay(function() {
 				var w:Float = Math.min(Browser.window.innerWidth, Browser.window.innerHeight);
-			Graphics.instance.canvas.style.left = "0px";
+			Graphics.instance.canvas.style.left = Math.round((Browser.window.innerWidth-w)/2) + "px";
 			Graphics.instance.canvas.style.bottom = "0px";
 			Graphics.instance.canvas.style.width = w+"px";
 			Graphics.instance.canvas.style.height = w+"px";
