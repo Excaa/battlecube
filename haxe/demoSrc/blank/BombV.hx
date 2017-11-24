@@ -36,7 +36,9 @@ class BombV extends Object3D
 		this.speed = speed;
 		this.mesh = new Mesh(geo, mat);
 		this.add(mesh);
-		Tween.get(this.rotation,{loop:true}).to( { x:Math.PI }, 5000);
+		Tween.get(this.rotation, { loop:true } ).to( { x:Math.PI }, 5000);
+		this.scale.x = this.scale.y = this.scale.z = 0;
+		Tween.get(this.scale).to( { x:1, y:1, z:1 }, CubeData.setup.speed);
 		Tween.get(this.mesh.scale, {loop:true}).to( { x:1.2,y:1.2, z:1.2 }, 150).to({x:1, y:1,z:1}, 150);
 	}
 	

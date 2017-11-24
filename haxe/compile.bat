@@ -26,4 +26,6 @@ haxe ^
 -resource src/wl/post/vhs/vhs.frag@vhs.frag ^
 -resource src/wl/post/vhs/vhs.vert@vhs.vert ^
 -resource src/wl/post/cga/cga.frag@cga.frag ^
--resource src/wl/post/cga/cga.vert@cga.vert 
+-resource src/wl/post/cga/cga.vert@cga.vert ^
+-resource demoSrc/blank/LinePlane.frag@LinePlane.frag ^
+-resource demoSrc/blank/LinePlane.vert@LinePlane.vert
