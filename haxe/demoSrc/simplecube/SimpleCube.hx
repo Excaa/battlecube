@@ -130,6 +130,7 @@ class SimpleCube extends Part
 			
 		}
 	}
+	private var curtick:Float;
 	
 	public override function update(ts:TimeSig, partial:Float, frameTime:Float, delta:Float):Void {
 		super.update(ts, partial, frameTime, delta);
@@ -141,6 +142,15 @@ class SimpleCube extends Part
 		tickSpeed = CubeData.setup.speed;
 		initPlayers(CubeData.players);
 		
+		if (untyped Browser.window.TICK != curtick)
+		{
+			trace("SET TICK");
+			this.postProcessing.rgbShift.uniforms.bshift.value = 0.03;
+			this.postProcessing.rgbShift.uniforms.gshift.value = -0.03;
+			this.curtick = untyped Browser.window.TICK;
+			Tween.get(this.postProcessing.rgbShift.uniforms.bshift).to( { value:0 }, CubeData.setup.speed/2);
+			Tween.get(this.postProcessing.rgbShift.uniforms.gshift).to( { value:0 }, CubeData.setup.speed/2);
+		}
 		
 		for ( bomb in CubeData.bombs)
 		{

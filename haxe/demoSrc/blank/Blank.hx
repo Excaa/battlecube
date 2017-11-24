@@ -147,6 +147,7 @@ class Blank extends Part
 		Blank.mat = mat;
 		return mat;
 	}
+	
 	public static var mat:ShaderMaterial;
 	public static function updatemat():Void
 	{
