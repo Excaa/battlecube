@@ -31,6 +31,7 @@ class SimpleCube extends Part
 	
 	private var explosions:Float = 0;
 	private var itemContainer:Object3D;
+	private var resetSuccesfull:Bool = true;
 	
 	public function new() 
 	{
@@ -129,7 +130,7 @@ class SimpleCube extends Part
 		
 		super.update(ts, partial, frameTime, delta);
 		
-		if (CubeData == null) return;
+		if (CubeData == null || !resetSuccesfull) return;
 		if (!setupDone){
 			setup(CubeData.setup);	
 		}
@@ -177,6 +178,23 @@ class SimpleCube extends Part
 		this.camera.lookAt(new Vector3());
 	}
 	
+	public function reset(){
+		trace("RESET");
+		resetSuccesfull = false;
+		
+		for (b in active){
+			if (b == null) continue;
+			b.explode();
+		}
+		explosions = 0;
+		for (p in players){
+			p.reset();
+			this.itemContainer.remove(p);
+		}
+		players = [];
+		setupDone = false;
+		resetSuccesfull = true;
+	}
 	
 	override public function render(ts:TimeSig, frameTime:Float):Void {
 		super.render(ts, frameTime);

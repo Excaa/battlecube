@@ -16,6 +16,7 @@ export default (state: IAppState, actions: IActions) =>
     button(
       {
         disabled: state.gameStatus === GameStatus.started,
+        id:"startGameBtn",
         onclick: () => actions.start()
       },
       'Start game'

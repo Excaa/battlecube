@@ -29,10 +29,16 @@ class SimpleCubePlayer extends Object3D
 	}
 	
 	public function die():Void{
+		trace("Die");
 		if (alive){
 			alive = false;
 			Tween.get(playermesh.scale).to({x:0.1, y:0.1, z:0.1}, 500);
 		}
-		playermesh.scale.set(0.3, 0.3, 0.3);
+		//playermesh.scale.set(0.3, 0.3, 0.3);
+	}
+	
+	public function reset():Void{
+		trace("reset player");
+		playermesh.scale.set(1,1,1);
 	}
 }
