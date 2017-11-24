@@ -71,6 +71,8 @@ class SimpleCube extends Part
 			
 			if (savedPlayer.length == 0){
 				var newPlayer = new SimpleCubePlayer(p);
+				newPlayer.position.set(p.position.x, p.position.y, p.position.z);
+				players.push(newPlayer);
 				this.scene.add(newPlayer);
 			}
 			
