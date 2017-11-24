@@ -118,6 +118,7 @@ class SimpleCube extends Part
 		if (!setupDone){
 			setup(CubeData.setup);	
 		}
+		tickSpeed = CubeData.setup.speed;
 		initPlayers(CubeData.players);
 		
 		
@@ -126,7 +127,7 @@ class SimpleCube extends Part
 			var b:BombV = bombs[bomb.x][bomb.y][bomb.z];
 			if (b == null)
 			{
-				b = new BombV();
+				b = new BombV(tickSpeed);
 				this.scene.add(b);
 				b.x = bomb.x;
 				b.y = bomb.y;

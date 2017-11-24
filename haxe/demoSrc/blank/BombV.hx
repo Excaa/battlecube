@@ -5,6 +5,7 @@ import js.three.Mesh;
 import js.three.MeshBasicMaterial;
 import js.three.Object3D;
 import js.three.TorusGeometry;
+import CubeData.setup;
 
 /**
  * ...
@@ -22,8 +23,9 @@ class BombV extends Object3D
 	public var z:Int;
 	
 	private var exploded:Bool = false;
+	private var speed:Int;
 	
-	public function new() 
+	public function new(speed:Int) 
 	{
 		super();
 		if(geo ==null)
@@ -31,6 +33,7 @@ class BombV extends Object3D
 		if(mat == null)
 			mat = new MeshBasicMaterial( { color:0xff0000,transparent:true } );
 			
+		this.speed = speed;
 		this.mesh = new Mesh(geo, mat);
 		this.add(mesh);
 		Tween.get(this.rotation,{loop:true}).to( { x:Math.PI }, 5000);
@@ -43,8 +46,8 @@ class BombV extends Object3D
 		exploded = true;
 		Tween.removeTweens(this.mesh.scale);
 		trace("EXPLODE: " + explode);
-		Tween.get(this.mesh.scale).to( { x:2.5, y:2.5, z:2.5 }, 500);
-		Tween.get(this.mesh.material).to( { opacity:0 }, 500).call(function() {
+		Tween.get(this.mesh.scale).to( { x:2.5, y:2.5, z:2.5 }, speed);
+		Tween.get(this.mesh.material).to( { opacity:0 }, speed).call(function() {
 			this.parent.remove(this);
 		} );
 	}

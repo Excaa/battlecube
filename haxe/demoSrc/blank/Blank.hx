@@ -87,7 +87,7 @@ class Blank extends Part
 			var b:BombV = bombs[bomb.x][bomb.y][bomb.z];
 			if (b == null)
 			{
-				b = new BombV();
+				b = new BombV(500);
 				this.itemcontainer.add(b);
 				b.x = bomb.x;
 				b.y = bomb.y;
