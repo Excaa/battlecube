@@ -181,7 +181,6 @@ class SimpleCube extends Part
 	public function reset(){
 		trace("RESET");
 		resetSuccesfull = false;
-		
 		for (b in active){
 			if (b == null) continue;
 			b.explode();

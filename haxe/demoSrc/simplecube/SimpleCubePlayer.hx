@@ -39,6 +39,7 @@ class SimpleCubePlayer extends Object3D
 	
 	public function reset():Void{
 		trace("reset player");
+		alive = true;
 		playermesh.scale.set(1,1,1);
 	}
 }
