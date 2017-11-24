@@ -66,7 +66,8 @@ class DemoMain
 		Config.ENABLE_FFT = true;
 
 		Config.TIMELINE = [
-			new TimeLine(new SimpleCube(), new TimeSig(0), new TimeSig(0), "blank", true),
+			//new TimeLine(new SimpleCube(), new TimeSig(0), new TimeSig(0), "blank", true),
+			new TimeLine(new Blank(), new TimeSig(0), new TimeSig(0), "blank", true),
 		];
 		/**/
 		//Load font
