@@ -89,7 +89,7 @@ class SimpleCube extends Part
 		this.camera.fov = 60;
 		this.camera.updateProjectionMatrix();
 		this.camera.position.z = gridsize * 1;
-		this.camera.position.x = 0;
+		this.camera.position.x = gridsize * 1;
 		this.camera.position.y = gridsize * 1;
 		this.camera.lookAt(new Vector3(0,0,0));
 		
