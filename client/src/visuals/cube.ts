@@ -44,34 +44,6 @@ export const createCube = () => {
   let material: any;
 
   const init = ({ setup }: IAppState) => {
-    segments = setup.edgeLength - 1;
-    scene = new Scene();
-    camera = new PerspectiveCamera(
-      45,
-      config.WIDTH / config.HEIGHT,
-      config.NEAR,
-      config.FAR
-    );
-    camera.position.z = 200;
-    camera.lookAt(new Vector3(0, 0, 0));
-    ambientLight = new AmbientLight(0x898989);
-    light = new DirectionalLight(0xffffff, 0.5);
-    light.position.set(-50, 250, 300);
-
-    scene.add(ambientLight);
-    scene.add(light);
-
-    addCube();
-
-    renderer = new WebGLRenderer();
-    renderer.setClearColor(0x131313);
-    renderer.setSize(config.WIDTH, config.HEIGHT);
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = PCFSoftShadowMap;
-    container = document.getElementById('cube-container');
-    container.appendChild(renderer.domElement);
-
-    render();
   };
 
   function addCube() {
@@ -157,10 +129,6 @@ export const createCube = () => {
   };
 
   const resize = (length: number) => {
-    scene.remove(cube);
-    segments = length;
-    addCube();
-    render();
   };
 
   const reset = () => {
