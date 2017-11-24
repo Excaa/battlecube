@@ -20,9 +20,8 @@ class Blank extends Part
 	private var cube:Mesh;
 	private var setupdone:Bool = false;
 	
-	private var bombs:Array<Array<Array<BombV>>> = [];
-	
 	private var itemcontainer:Object3D;
+	private var bombs:Array<Array<Array<BombV>>> = [];
 	private var active:Array<BombV> = [];
 	
 	public function new() 
@@ -60,6 +59,7 @@ class Blank extends Part
 		this.camera.lookAt(new Vector3());
 		this.setupdone = true;
 		this.cube.add(this.itemcontainer);
+		var size:Int = CubeData.setup.edgeLength;
 		for ( i in 0...size)
 		{
 			bombs[i] = [];

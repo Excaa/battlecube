@@ -1,4 +1,5 @@
 package simplecube;
+import blank.BombV;
 import createjs.tweenjs.Ease;
 import createjs.tweenjs.Tween;
 import haxe.ds.Vector;
@@ -11,7 +12,7 @@ import wl.core.Part;
 import wl.core.TimeSig;
 import CubeData.Setup;
 import CubeData.Player;
-
+import CubeData.Bomb;
 /**
  * ...
  * @author 
@@ -23,8 +24,9 @@ class SimpleCube extends Part
 	private var tickSpeed:Int;
 	
 	private var players:Array<SimpleCubePlayer>;
-	private var bombs:Array<Mesh>;
 	
+	private var bombs:Array<Array<Array<BombV>>> = [];
+	private var active:Array<BombV> = [];
 	
 	public function new() 
 	{
@@ -57,6 +59,19 @@ class SimpleCube extends Part
 					var mesh = new Mesh(gridGeo, gridMat);
 					mesh.position.set(x, y, z);
 					//this.scene.add(mesh);
+				}
+			}
+		}
+		var size:Int = CubeData.setup.edgeLength;
+		for ( i in 0...size)
+		{
+			bombs[i] = [];
+			for (j in 0...size)
+			{
+				bombs[i][j] = [];
+				for (k in 0...size)
+				{
+					bombs[i][j][k] = null;
 				}
 			}
 		}
@@ -106,6 +121,36 @@ class SimpleCube extends Part
 		initPlayers(CubeData.players);
 		
 		
+		for ( bomb in CubeData.bombs)
+		{
+			var b:BombV = bombs[bomb.x][bomb.y][bomb.z];
+			if (b == null)
+			{
+				b = new BombV();
+				this.scene.add(b);
+				b.x = bomb.x;
+				b.y = bomb.y;
+				b.z = bomb.z;
+				b.position.x = b.x;
+				b.position.y = b.y;
+				b.position.z = b.z;
+				bombs[b.x][b.y][b.z] = b;
+				active.push(b);
+			}
+		}
+		//Clear dead ones
+		var remove:Array<BombV> = [];
+		for ( b in active)
+		{
+			var isok:Bool = CubeData.bombs.filter(function(bd:Bomb):Bool { return bd.x == b.x && bd.y == b.y && bd.z == bd.z; } ).length > 0;
+			if (!isok)
+				remove.push(b);
+		}
+		for (b in remove)
+		{
+			active.remove(b);
+			b.explode();
+		}
 		
 	}
 	
