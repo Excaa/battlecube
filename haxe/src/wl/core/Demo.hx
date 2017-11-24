@@ -246,45 +246,18 @@ class Demo
 		//if (ms <= 0/* || ms > sound length*/) //No updates if there's nothing to do.
 		//	return;
 		//trace(ms);
-		for ( i in 0...Config.TIMELINE.length)
-		{
-			var tl:TimeLine = Config.TIMELINE[i];
-			if (ts.isInside(tl.runOn, tl.runOff))
-			{
-				//Part is active
-				var p:Part = tl.part;
-				p.timeline = tl;
-				var inTransition:Bool = ts.isInside(tl.runOn, tl.rtsOn) || ts.isInside(tl.rtsOff, tl.runOff);
-				p.setRenderToScreen(tl.renderToScreen && !inTransition);
-				if (!p.running)
-				{
-					//Start the part.
-					p.start(ts);
-				}
-				p.isActive = true;
-			}
-		}
-
+		
 		DemoMain.update(ts, 0, Debug.paused?0: frameTime, delta);
 		//Go through all parts.
 		for ( p in this.parts)
 		{
-			if (p.isActive)
+//			if (p.isActive)
 			{
-				var timespan = p.timeline.runOff.toMilliseconds() - p.timeline.runOn.toMilliseconds();
-				var partial = (ts.toMilliseconds() - p.timeline.runOn.toMilliseconds()) / timespan;
+				var timespan = 0;
+				var partial = 0;
 				p.update(ts, partial,Debug.paused ? 0 : frameTime,delta );
 			//	for (effect in p.effects)
 			//		effect.update(ts, partial, frameTime);
-			}
-			else if (p.running)
-			{
-				p.stop();
-				if (!Config.DEBUG)
-				{
-				//	this.parts.remove(p);
-				//	this.partMap.remove(p.name);
-				}
 			}
 			//Mark activity to false for next update.
 			p.isActive = false;
@@ -292,11 +265,10 @@ class Demo
 		
 		//Calculate triggers and avoid missing them by stepping forward tick at a time.
 		//Handle triggers by stepping current time forward so no trigger is skipped.
-		while(this.previousTS.isSmallerThan(ts))
 		{
 			for(p in this.parts)
 			{
-				if(p.running)
+	//			if(p.running)
 				{
 					for (key in p.triggers.keys())
 					{
