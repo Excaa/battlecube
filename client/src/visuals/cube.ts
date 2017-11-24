@@ -153,52 +153,7 @@ export const createCube = () => {
   };
 
   const update = ({ players, bombs, setup }: IAppState) => {
-    const bombMap = bombs.reduce((map: any, b) => {
-      const { x, y, z } = getPosition(b.x, b.y, b.z);
-      map.set(`${x}/${y}/${z}`, { x, y, z });
-      return map;
-    }, new Map());
-
-    const playerMap = players.reduce((map: any, { position, name, color, status }: any) => {
-      if (status === PlayerStatus.inactive || !name) {
-        return map;
-      }
-      map.set(name, { name, color, position: getPosition(position.x, position.y, position.z) });
-      return map;
-    }, new Map());
-
-    for (let i = cube.children.length - 1; i >= 0; i = i - 1) {
-      const obj = cube.children[i];
-
-      if (playerMap.has(obj.name)) {
-        const newPos = playerMap.get(obj.name).position;
-
-        if (hasMoved(newPos, obj.position)) {
-          const newCoords = { x: newPos.x, y: newPos.y, z: newPos.z };
-          tweenVector3(obj, newCoords, setup.speed);
-
-          playerMap.delete(obj.name);
-        } else {
-          playerMap.delete(obj.name);
-        }
-      } else if (!bombMap.has(obj.name)) {
-        cube.remove(obj);
-      } else {
-        bombMap.delete(obj.name);
-      }
-    }
-
-    bombMap.forEach(({ x, y, z }: IPosition, name: string) => {
-      const bomb = makeBomb({ x, y, z }, name);
-      cube.add(bomb);
-    });
-
-    playerMap.forEach((player: any, name: string) => {
-      const bot = makeBot(player, name);
-      cube.add(bot);
-    });
-
-    render();
+    window.cubeData = {players, bombs, setup};
   };
 
   const resize = (length: number) => {
