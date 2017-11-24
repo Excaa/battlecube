@@ -1,4 +1,5 @@
 package simplecube;
+import createjs.tweenjs.Ease;
 import createjs.tweenjs.Tween;
 import haxe.ds.Vector;
 import js.three.BoxGeometry;
@@ -84,7 +85,11 @@ class SimpleCube extends Part
 			else{
 				playah = savedPlayer[0];
 			}
-			Tween.get(playah.position).to({x:p.position.x, y:p.position.y, z:p.position.z},cast 800); 
+			if (!playah.moving && playah.position.x != p.position.x || playah.position.y != p.position.y || playah.position.z != p.position.z){
+				
+				playah.moving = true;
+				Tween.get(playah.position).to({x:p.position.x, y:p.position.y, z:p.position.z}, cast tickSpeed * 0.7, Ease.quadInOut).call(function (pll:Dynamic){pll.moving = false;});
+			}
 			
 			
 		}

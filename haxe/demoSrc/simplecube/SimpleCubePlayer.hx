@@ -14,6 +14,7 @@ import CubeData.Player;
 class SimpleCubePlayer extends Object3D
 {
 	public var PlayerName:String;
+	public var moving:Bool;
 	public function new(p:Player) 
 	{
 		super();
