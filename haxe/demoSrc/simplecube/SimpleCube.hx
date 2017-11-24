@@ -33,11 +33,12 @@ class SimpleCube extends Part
 			standard:true
 		}));
 		
+		var gridsize = 5;
 		var gridMat = new MeshBasicMaterial({color:0xff0000, wireframe:true});
 		var gridGeo = new BoxGeometry(1, 1, 1);
-		for (z in 0...10){
-			for (x in 0...10){
-				for (y in 0...10){
+		for (z in 0...gridsize){
+			for (x in 0...gridsize){
+				for (y in 0...gridsize){
 					var mesh = new Mesh(gridGeo, gridMat);
 					mesh.position.set(x, y, z);
 					this.scene.add(mesh);
@@ -45,8 +46,10 @@ class SimpleCube extends Part
 			}
 		}
 		
-		this.camera.position.z = -20;
-		this.camera.lookAt(new Vector3(5, 5, 5));
+		this.camera.position.z = -gridsize * 3;
+		this.camera.position.x = gridsize / 2;
+		this.camera.position.y = gridsize / 2;
+		this.camera.lookAt(new Vector3(gridsize/2,gridsize/2,gridsize/2));
 	}
 	
 	public override function update(ts:TimeSig, partial:Float, frameTime:Float, delta:Float):Void {
