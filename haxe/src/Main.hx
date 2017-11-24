@@ -10,7 +10,7 @@ import wl.core.Graphics;
 import wl.core.TimeSig;
 import wl.demo.CameraController;
 import wl.setup.Setup;
-import wl.sounds.SoundWL;
+
 import wl.util.LoadManager;
 
 /**
@@ -43,8 +43,6 @@ class Main
 		
 		if (LoadManager.totalCount == 0) assetsLoaded = true;
 		
-		SoundWL.onSoundLoaded.connect(onSoundLoaded);
-		SoundWL.init();
 		onSoundLoaded();
 	}
 	

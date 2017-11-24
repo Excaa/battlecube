@@ -20,7 +20,7 @@ import wl.core.Part;
 import wl.core.Signal;
 import wl.core.TimeSig;
 import wl.demo.TimeLine;
-import wl.sounds.SoundWL;
+
 import wl.util.MathUtil;
 
 /**
@@ -70,11 +70,7 @@ class DemoMain
 		/**/
 		//Load font
 		//font = untyped __js__('new THREE.Font( JSON.parse( window.demofont.substring( 65, window.demofont.length - 2 ) ));');
-		var loader = new FontLoader();
-
-		loader.load( 'font/BlackOpsOne_Regular.json', function ( font ) {	
-			DemoMain.font2 = font;
-		}, function(){}, function(){});
+		
 	}
 	
 	

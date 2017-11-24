@@ -24,7 +24,7 @@ import wl.debug.Debug;
 import wl.debug.ManualControl;
 import wl.demo.TimeLine;
 import wl.post.standard.StandardShader;
-import wl.sounds.SoundWL;
+
 import wl.util.Random;
 
 
@@ -69,7 +69,7 @@ class Demo
 	{
 		Random.init(Config.SEED);
 		this.graphics = new Graphics();
-		SoundWL.onSoundComplete.connect(this.onSoundEnd);
+		
 		Timer.delay(function(){
 			this.previousTS = TimeSig.create(0);
 			this.graphics.onRender.connect(this.onRender);

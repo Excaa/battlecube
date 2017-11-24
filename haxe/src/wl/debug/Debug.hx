@@ -12,7 +12,7 @@ import wl.core.Graphics;
 import wl.core.Part;
 import wl.core.TimeSig;
 import wl.demo.TimeLine;
-import wl.sounds.SoundWL;
+
 
 /**
  * ...
@@ -92,18 +92,12 @@ class Debug
 	private static function tlClick(tl:TimeLine):Dynamic
 	{
 		return function() {
-			var curtime:Int = SoundWL.instance.getPosition();
-			var tlpos:Int =cast tl.rtsOn.toMilliseconds();
-			SoundWL.instance.setPosition(tlpos);
-			Tween.tick( Math.floor(tlpos-curtime), false);
-			Demo.instance.previousTS.fromTime(SoundWL.instance.getPosition()/1000/60-Config.MUSIC_BEGIN/1000/60);
+
 		}
 	}
 	
 	public static function onupdate():Void
 	{
-		var ts:TimeSig = SoundWL.getPosition();
-		debugTimeSig.html( StringTools.replace( ts.toString(),"\n", "<br/>")+"<br/>"+Math.round(ts.toMilliseconds()/100)/10+"s");
 	}
 	
 	public static function onrender():Void
@@ -122,22 +116,10 @@ class Debug
 		if (e.keyCode == 109 || e.keyCode == 188)
 		{
 			// minus / .
-			if(SoundWL.instance!=null)
-			{
-				SoundWL.instance.setPosition(SoundWL.instance.getPosition()-5000);
-					Tween.tick( -5000, false);
-				Demo.instance.previousTS.fromTime(SoundWL.instance.getPosition()/1000/60-Config.MUSIC_BEGIN/1000/60);
-			}
 		}
 		if (e.keyCode == 107 || e.keyCode == 190)
 		{
 			// plus / ,
-			if(SoundWL.instance !=null)
-			{
-				SoundWL.instance.setPosition(SoundWL.instance.getPosition()+5000);
-				Tween.tick(5000, false);
-				Demo.instance.previousTS.fromTime(SoundWL.instance.getPosition()/1000/60-Config.MUSIC_BEGIN/1000/60);
-			}
 		}
 		if (e.keyCode == 32)
 		{
