@@ -125,6 +125,8 @@ export const createCube = () => {
   };
 
   const update = ({ players, bombs, setup }: IAppState) => {
+    if(window.TICK === undefined) window.TICK = 0;
+    window.TICK++;
     window.cubeData = {players, bombs, setup};
   };
 

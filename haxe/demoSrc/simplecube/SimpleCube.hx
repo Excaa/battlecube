@@ -131,7 +131,6 @@ class SimpleCube extends Part
 	private var curtick:Float;
 	
 	public override function update(ts:TimeSig, partial:Float, frameTime:Float, delta:Float):Void {
-		
 		super.update(ts, partial, frameTime, delta);
 		if (CubeData == null || !resetSuccesfull) return;
 		if (!setupDone){
@@ -192,7 +191,6 @@ class SimpleCube extends Part
 	public function reset(){
 		trace("RESET");
 		resetSuccesfull = false;
-		
 		for (b in active){
 			if (b == null) continue;
 			b.explode();
