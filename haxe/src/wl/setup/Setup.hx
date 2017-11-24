@@ -1,6 +1,7 @@
 package wl.setup;
 import haxe.Timer;
 import js.Browser;
+import js.html.Element;
 import js.html.Image;
 import js.html.ImageElement;
 import js.jquery.Event;
@@ -44,8 +45,8 @@ class Setup
         
 		demo.init(null, function() { demo.start(); } );
 		untyped Browser.window.DEMO_CANVAS = demo.graphics.canvas;
-		
-		
+		var demodiv:Element = Browser.document.getElementById("cube-container");
+		demodiv.appendChild(demo.graphics.canvas);
 	}
 	private static var loadImg:Image;
 	

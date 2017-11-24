@@ -2923,6 +2923,8 @@ wl_setup_Setup.startRun = function() {
 		wl_setup_Setup.demo.start();
 	});
 	window.DEMO_CANVAS = wl_setup_Setup.demo.graphics.canvas;
+	var demodiv = window.document.getElementById("cube-container");
+	demodiv.appendChild(wl_setup_Setup.demo.graphics.canvas);
 };
 wl_setup_Setup.fullScreenClickHandler = function(e) {
 };
