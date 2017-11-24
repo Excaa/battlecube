@@ -15,10 +15,8 @@ import wl.core.Demo;
  */
 class Setup
 {
-	private static var setupDiv:JQuery;
-	private static var resolution:JQuery;
 	private static var demo:Demo;
-	private static var demoDiv:JQuery;
+	
 	
 	public function new() 
 	{
@@ -33,33 +31,27 @@ class Setup
 	
 	private static function hideSetup():Void
 	{
-		setupDiv.remove();
 	}
 	
 	private static function startRun():Void
 	{
-		var mute:Bool = setupDiv.find('#muted').find("input").is(':checked');
+		var mute:Bool =true;
 		if(mute){
         	Config.MUTED = true;
         }
-		var debug:Bool = setupDiv.find('#debug').find("input").is(':checked');
+		var debug:Bool = false;
 		Config.DEBUG = debug;
-		if (debug)
-			new JQuery(".debug").css("display", "block");
-        else
-			new JQuery(".debug").css("display", "none");
         
-		demo.init(demoDiv[0], function() { loadImg.remove(); demo.start(); } );
-		demoDiv.append(cast demo.graphics.canvas);
+		demo.init(null, function() { demo.start(); } );
+		untyped Browser.window.DEMO_CANVAS = demo.graphics.canvas;
 		
-		//Special hack for kapital
-		Browser.document.getElementById("demo").style.display = "block";
 		
 	}
 	private static var loadImg:Image;
 	
 	private static function fullScreenClickHandler(e:Event):Void
 	{
+		/*
 		hideSetup();
 		try
 		{
@@ -85,7 +77,7 @@ class Setup
 		demoDiv.css("background", "black");
 		
 		//Delay start for the message to go away
-		Timer.delay(startRun, 5000);
+		Timer.delay(startRun, 5000);*/
 	}
 	private static function startClickHandler(e:Event):Void
 	{
@@ -118,9 +110,9 @@ class Setup
 			else if(lockAspect && h<w*1/ratio)
 				w =cast h * ratio;
 		}
-		Config.RESOLUTION[0] = w;
-		Config.RESOLUTION[1] = h;
-		demoDiv.css("width", w+"px").css("height", h+"px");
+		Config.RESOLUTION[0] = 1280;
+		Config.RESOLUTION[1] = 720;
+		
 		
 		Timer.delay(startRun, 50);
 	}

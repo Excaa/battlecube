@@ -68,7 +68,7 @@ class Demo
 	public function init(container:Element,callback:Dynamic):Void
 	{
 		Random.init(Config.SEED);
-		this.graphics = new Graphics(container);
+		this.graphics = new Graphics();
 		SoundWL.onSoundComplete.connect(this.onSoundEnd);
 		Timer.delay(function(){
 			this.previousTS = TimeSig.create(0);
