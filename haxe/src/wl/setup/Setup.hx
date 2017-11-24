@@ -92,8 +92,8 @@ class Setup
 		hideSetup();
 		
 		//Default is 720p
-		var w:Int = 720;
-		var h:Int = 720;
+		var w:Int = 1024;
+		var h:Int = 1024;
 		if(resolutionType == "b")
 		{
 			//1080p
@@ -111,8 +111,8 @@ class Setup
 			else if(lockAspect && h<w*1/ratio)
 				w =cast h * ratio;
 		}
-		Config.RESOLUTION[0] = 720;
-		Config.RESOLUTION[1] = 720;
+		Config.RESOLUTION[0] = 1024;
+		Config.RESOLUTION[1] = 1024;
 		
 		
 		Timer.delay(startRun, 50);
