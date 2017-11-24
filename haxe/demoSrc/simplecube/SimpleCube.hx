@@ -1,4 +1,5 @@
 package simplecube;
+import createjs.tweenjs.Tween;
 import haxe.ds.Vector;
 import js.three.BoxGeometry;
 import js.three.Geometry;
@@ -18,9 +19,11 @@ class SimpleCube extends Part
 {
 	private var cube:Array < Array < Array<Mesh> >> = [];
 	private var setupDone:Bool;
+	private var tickSpeed:Int;
 	
 	private var players:Array<SimpleCubePlayer>;
 	private var bombs:Array<Mesh>;
+	
 	
 	public function new() 
 	{
@@ -52,7 +55,7 @@ class SimpleCube extends Part
 				for (y in 0...gridsize){
 					var mesh = new Mesh(gridGeo, gridMat);
 					mesh.position.set(x, y, z);
-					this.scene.add(mesh);
+					//this.scene.add(mesh);
 				}
 			}
 		}
@@ -61,7 +64,8 @@ class SimpleCube extends Part
 		this.camera.position.x = 4;
 		this.camera.position.y = 4;
 		this.camera.lookAt(new Vector3(4,4,0));
-	
+		
+		tickSpeed = setupdata.speed;
 		setupDone = true;
 	}
 	
@@ -69,21 +73,26 @@ class SimpleCube extends Part
 		for (p in inputPlayers){
 			var savedPlayer =  players.filter(function (player:SimpleCubePlayer){return player.PlayerName == p.name; });
 			
+			var playah:SimpleCubePlayer;
 			if (savedPlayer.length == 0){
 				var newPlayer = new SimpleCubePlayer(p);
 				newPlayer.position.set(p.position.x, p.position.y, p.position.z);
 				players.push(newPlayer);
 				this.scene.add(newPlayer);
+				playah = newPlayer;
 			}
+			else{
+				playah = savedPlayer[0];
+			}
+			Tween.get(playah.position).to({x:p.position.x, y:p.position.y, z:p.position.z},cast 800); 
 			
 			
 		}
 	}
 	
 	public override function update(ts:TimeSig, partial:Float, frameTime:Float, delta:Float):Void {
-		trace("ASRR");
+		
 		super.update(ts, partial, frameTime, delta);
-		trace(CubeData);
 		
 		if (CubeData == null) return;
 		if (!setupDone){
