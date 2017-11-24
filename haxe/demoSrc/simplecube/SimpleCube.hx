@@ -8,6 +8,7 @@ import js.three.Vector3;
 import wl.core.Part;
 import wl.core.TimeSig;
 import CubeData.Setup;
+import CubeData.Player;
 
 /**
  * ...
@@ -17,6 +18,9 @@ class SimpleCube extends Part
 {
 	private var cube:Array < Array < Array<Mesh> >> = [];
 	private var setupDone:Bool;
+	
+	private var players:Array<SimpleCubePlayer>;
+	private var bombs:Array<Mesh>;
 	
 	public function new() 
 	{
@@ -35,10 +39,11 @@ class SimpleCube extends Part
 			standard:true
 		}));
 		
+		players = [];
 	}
 	
 	private function setup(setupdata:Setup):Void{
-		
+		trace("setup");
 		var gridsize = setupdata.edgeLength;
 		var gridMat = new MeshBasicMaterial({color:0xff0000, wireframe:true});
 		var gridGeo = new BoxGeometry(1, 1, 1);
@@ -56,15 +61,34 @@ class SimpleCube extends Part
 		this.camera.position.x = 4;
 		this.camera.position.y = 4;
 		this.camera.lookAt(new Vector3(4,4,0));
-
+	
+		setupDone = true;
+	}
+	
+	private function initPlayers(inputPlayers:Array<Player>){
+		for (p in inputPlayers){
+			var savedPlayer =  players.filter(function (player:SimpleCubePlayer){return player.PlayerName == p.name; });
+			
+			if (savedPlayer.length == 0){
+				var newPlayer = new SimpleCubePlayer(p);
+				this.scene.add(newPlayer);
+			}
+			
+			
+		}
 	}
 	
 	public override function update(ts:TimeSig, partial:Float, frameTime:Float, delta:Float):Void {
+		trace("ASRR");
 		super.update(ts, partial, frameTime, delta);
+		trace(CubeData);
+		
 		if (CubeData == null) return;
 		if (!setupDone){
-			setup(CubeData.setup);
+			setup(CubeData.setup);	
 		}
+		initPlayers(CubeData.players);
+		
 		
 		
 	}
