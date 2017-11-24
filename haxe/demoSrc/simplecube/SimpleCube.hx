@@ -106,6 +106,9 @@ class SimpleCube extends Part
 				Tween.get(playah.position).to({x:p.position.x, y:p.position.y, z:p.position.z}, cast tickSpeed * 0.7, Ease.quadInOut).call(function (pll:Dynamic){pll.moving = false;});
 			}
 			
+			if (p.status == 0){
+				playah.die();
+			}
 			
 		}
 	}

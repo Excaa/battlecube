@@ -1,4 +1,5 @@
 package simplecube;
+import createjs.tweenjs.Tween;
 import js.three.BoxGeometry;
 import js.three.Color;
 import js.three.Mesh;
@@ -15,12 +16,23 @@ class SimpleCubePlayer extends Object3D
 {
 	public var PlayerName:String;
 	public var moving:Bool;
+	
+	private var playermesh:Mesh;
+	private var alive:Bool;
 	public function new(p:Player) 
 	{
 		super();
+		alive = true;
 		PlayerName = p.name;
-		var playermesh = new Mesh(new SphereGeometry(0.75), new MeshBasicMaterial({color:cast p.color}));
+		playermesh = new Mesh(new SphereGeometry(0.4), new MeshBasicMaterial({color:cast p.color}));
 		this.add(playermesh);
 	}
 	
+	public function die():Void{
+		if (alive){
+			alive = false;
+			Tween.get(playermesh.scale).to({x:0.1, y:0.1, z:0.1}, 500);
+		}
+		playermesh.scale.set(0.3, 0.3, 0.3);
+	}
 }
