@@ -4,6 +4,7 @@ import blank.BombV;
 import createjs.tweenjs.Ease;
 import createjs.tweenjs.Tween;
 import haxe.ds.Vector;
+import js.Browser;
 import js.three.BoxGeometry;
 import js.three.Geometry;
 import js.three.Mesh;
@@ -129,7 +130,6 @@ class SimpleCube extends Part
 	}
 	
 	public override function update(ts:TimeSig, partial:Float, frameTime:Float, delta:Float):Void {
-		
 		super.update(ts, partial, frameTime, delta);
 		
 		if (CubeData == null || !resetSuccesfull) return;
