@@ -101,7 +101,7 @@ class SimpleCube extends Part
 				playah = savedPlayer[0];
 			}
 			if (!playah.moving && playah.position.x != p.position.x || playah.position.y != p.position.y || playah.position.z != p.position.z){
-				
+				Tween.removeTweens(playah.position);
 				playah.moving = true;
 				Tween.get(playah.position).to({x:p.position.x, y:p.position.y, z:p.position.z}, cast tickSpeed * 0.7, Ease.quadInOut).call(function (pll:Dynamic){pll.moving = false;});
 			}
