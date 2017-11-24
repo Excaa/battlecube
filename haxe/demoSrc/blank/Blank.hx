@@ -1,8 +1,11 @@
 package blank;
 
+import js.three.BoxGeometry;
 import js.three.Mesh;
+import js.three.MeshBasicMaterial;
 import wl.core.Part;
 import wl.core.TimeSig;
+import CubeData.Setup;
 
 /**
  * ...
@@ -10,8 +13,8 @@ import wl.core.TimeSig;
  */
 class Blank extends Part 
 {
-	private var cube:Array < Array < Array<Mesh> >> = [];
-
+	private var cube:Mesh;
+	private var setupdone:Bool = false;
 	public function new() 
 	{
 		super();
@@ -31,8 +34,20 @@ class Blank extends Part
 		
 		
 	}
+	private function setupCube():Void
+	{
+		var size:Int = CubeData.setup.edgeLength;
+		var boxGeo:BoxGeometry = new BoxGeometry(10,10,10);
+		var mat:MeshBasicMaterial = new MeshBasicMaterial({wireframe:true});
+		this.cube = new Mesh( boxGeo, mat);
+		
+	}
 	
 	public override function update(ts:TimeSig, partial:Float, frameTime:Float, delta:Float):Void {
+		if (CubeData != null && !setupdone)
+		{
+			
+		}
 		super.update(ts, partial, frameTime, delta);
 	}
 	

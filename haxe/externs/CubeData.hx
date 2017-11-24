@@ -8,7 +8,7 @@ extern class CubeData
 {
 	public static var players:Array<Player>;
 	public static var bombs:Array<Bomb>;
-	public static var setup:Array<Setup>;
+	public static var setup:Setup;
 }
 
 typedef Player = {
