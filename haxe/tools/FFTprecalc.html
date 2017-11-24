@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+
+    <!-- Bootstrap -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	
+	<script src='../vendor/three.js/build/three.js'></script>
+    <script src="../vendor/three.js/examples/js/Detector.js"></script>
+    <script src="../vendor/threex.windowresize.js"></script>
+	
+	<!-- Vendor files -->
+    <script type="text/javascript" src="../vendor/threejs_ext/postprocessing/EffectComposer.js"></script>
+    <script type="text/javascript" src="../vendor/threejs_ext/postprocessing/ShaderPass.js"></script>
+    <script type="text/javascript" src="../vendor/threejs_ext/postprocessing/RenderPass.js"></script>
+    <script type="text/javascript" src="../vendor/threejs_ext/postprocessing/MaskPass.js"></script>
+    <script type="text/javascript" src="../vendor/threejs_ext/postprocessing/BloomPass.js"></script>
+    <script type="text/javascript" src="../vendor/threejs_ext/ShaderExtras.js"></script>
+    <script type="text/javascript" src="../vendor/threejs_ext/shaders/CopyShader.js"></script>
+    <script type="text/javascript" src="../vendor/threejs_ext/shaders/ConvolutionShader.js"></script>
+    <script type="text/javascript" src="../vendor/threejs_ext/shaders/VignetteShader.js"></script>
+    <script type="text/javascript" src="../vendor/threejs_ext/shaders/RGBShiftShader.js"></script>
+    <script type="text/javascript" src="../vendor/threejs_ext/shaders/FilmShader.js"></script>
+    <script type="text/javascript" src="../vendor/threejs_ext/shaders/DotScreenShader.js"></script>
+    <script type="text/javascript" src="../vendor/threejs_ext/shaders/BrightnessContrastShader.js"></script>
+	
+	<!-- Zlib -->
+	<script src="../vendor/imaya/zlib.js/bin/zlib.min.js"></script>
+
+	<!-- Base64 array -->
+	<script src="../vendor/mozilla/Base64Arr.js"></script>
+
+	
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../vendor/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../vendor/bigscreen.min.js"></script>
+    <script src="../vendor/signals.min.js"></script>
+	
+	<!-- Sound js -->
+    <script src="../vendor/SoundJS/lib/soundjs-0.6.0.min.js"></script>
+	
+	<!-- Base64 binary -->
+	<script src="../vendor/danguer/base64-binary.js"></script>
+	
+	<!-- KVG engine -->
+	<script src="../bin/kvg.js"></script>
+	
+	<!-- Assets -->
+	<script src="../bin/assets.js"></script>
+	
+	<!-- Use only when going for local playback with file://
+	<script src="bin/assets_sound.js"></script>
+	-->
+	<style>
+	body
+	{
+	margin:40px;
+	}
+	</style>
+</head>
+<body >
+<!-- Setup screen, must be id="screen" and must have elements resolution, start and fullscreen -->
+<div id="setup">
+    <button id="calculate" type="button" class="btn btn-lg btn-default">Calculate</button>
+</div>
+<div id="log">
+	
+</div>
+<div id="progress">
+	
+</div>
+<div id="result">
+	<textarea>Result</textarea>
+</div>
+<script >
+$().ready(function(){
+	var recordRate = 33; //Sample size in milliseconds
+	var log = $("#log");
+	var interval = null;
+	var samples = [];
+	log.append("Ready...<br/>");
+	$("#calculate").click(function(){
+		log.append("Load sound.<br/>");
+		progress = $("#progress");
+		var config = {
+			song:{src:"../bin/bg.ogg", enableFFT: true}
+		};
+		kvg.Config.song.src = "../bin/bg.ogg";
+		kvg.sound.onSoundLoaded.add(function(){
+			log.append("Sound loaded.<br/>");
+			kvg.sound.onSoundReady.add(function(){
+				log.append("Begin calculating FFT. Please wait.<br/>");	
+				//kvg.sound.instance.setVolume(0);
+				inverval = setInterval(function(){
+					var fft = kvg.sound.getFFT();
+					//Process the fft into smaller object.
+					samples.push({
+						d: Array.prototype.slice.call(fft.db), 
+						f: Array.prototype.slice.call(fft.frequency), 
+						w: Array.prototype.slice.call(fft.waveform)
+					});
+					progress.append(".");
+					if(progress.text().length > 100)
+						progress.text(".");
+				},recordRate);
+			});
+			kvg.sound.onSoundComplete.add(function(){
+				progress.text("");
+				log.append("Calculation complete");
+				var json = JSON.stringify(samples);
+				var bytes = [];
+				for(var i = 0; i < json.length; i++)
+					bytes.push(json.charCodeAt(i));
+				var deflate = new Zlib.Deflate(bytes);
+				var data = base64EncArr(deflate.compress());
+				console.log("Data size " + data.length);
+				$("#result textarea").val(data);
+			});
+			kvg.sound.start();
+		});
+		kvg.sound.init(config);
+	});
+});
+
+
+</script>
+
+</body>
+</html>

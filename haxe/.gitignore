@@ -1,0 +1,5 @@
+bower_components/
+.idea/
+/tools/towngen
+bin/engine.js
+bin/assets.js
