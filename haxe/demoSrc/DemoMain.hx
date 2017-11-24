@@ -46,11 +46,11 @@ class DemoMain
 	
 	public function new() 
 	{
-		
 	}
 	
 	public static function setup():Void
 	{
+		untyped Browser.window.cubeData = null;
 		//This is called before preloading and other stuff. This should setup the config variables.
 		Config.BEATS_PER_MINUTE = 173;
 		
@@ -73,8 +73,9 @@ class DemoMain
 		
 	}
 	
-	
 	public static function update(ts:TimeSig, partial:Float, frameTime:Float, delta:Float):Void
 	{
+		if(CubeData != null)
+			trace(CubeData.bombs.length);
 	}
 }

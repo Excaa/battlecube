@@ -37,6 +37,7 @@ var DemoMain = function() {
 };
 DemoMain.__name__ = ["DemoMain"];
 DemoMain.setup = function() {
+	window.cubeData = null;
 	wl_core_Config.BEATS_PER_MINUTE = 173;
 	wl_core_Config.MUSIC_BEGIN = 0;
 	wl_core_Config.FPS = -1;
@@ -48,6 +49,9 @@ DemoMain.setup = function() {
 	wl_core_Config.TIMELINE = [new wl_demo_TimeLine(new blank_Blank(),new wl_core_TimeSig(0),new wl_core_TimeSig(0),"blank",true)];
 };
 DemoMain.update = function(ts,partial,frameTime,delta) {
+	if(cubeData != null) {
+		console.log(cubeData.bombs.length);
+	}
 };
 DemoMain.prototype = {
 	__class__: DemoMain
