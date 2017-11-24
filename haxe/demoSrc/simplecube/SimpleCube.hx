@@ -141,11 +141,12 @@ class SimpleCube extends Part
 		
 		if (untyped Browser.window.TICK != curtick)
 		{
-			this.postProcessing.rgbShift.bshift = 0.05;
-			this.postProcessing.rgbShift.gshift = -0.05;
+			trace("SET TICK");
+			this.postProcessing.rgbShift.uniforms.bshift.value = 0.03;
+			this.postProcessing.rgbShift.uniforms.gshift.value = -0.03;
 			this.curtick = untyped Browser.window.TICK;
-			Tween.get(this.postProcessing.rgbShift.uniforms.bshift).to( { value:0 }, CubeData.setup.speed * 0.25);
-			Tween.get(this.postProcessing.rgbShift.uniforms.gshift).to( { value:0 }, CubeData.setup.speed * 0.25);
+			Tween.get(this.postProcessing.rgbShift.uniforms.bshift).to( { value:0 }, CubeData.setup.speed/2);
+			Tween.get(this.postProcessing.rgbShift.uniforms.gshift).to( { value:0 }, CubeData.setup.speed/2);
 		}
 		
 		for ( bomb in CubeData.bombs)
