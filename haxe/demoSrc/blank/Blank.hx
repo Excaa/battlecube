@@ -9,6 +9,7 @@ import js.three.Vector3;
 import wl.core.Part;
 import wl.core.TimeSig;
 import CubeData.Setup;
+import CubeData.Bomb;
 
 /**
  * ...
@@ -22,6 +23,7 @@ class Blank extends Part
 	private var bombs:Array<Array<Array<BombV>>> = [];
 	
 	private var itemcontainer:Object3D;
+	private var active:Array<BombV> = [];
 	
 	public function new() 
 	{
@@ -57,7 +59,7 @@ class Blank extends Part
 		this.camera.position.z = -30;
 		this.camera.lookAt(new Vector3());
 		this.setupdone = true;
-		
+		this.cube.add(this.itemcontainer);
 		for ( i in 0...size)
 		{
 			bombs[i] = [];
@@ -74,23 +76,43 @@ class Blank extends Part
 	}
 	
 	public override function update(ts:TimeSig, partial:Float, frameTime:Float, delta:Float):Void {
+		if (CubeData == null) return;
 		if (CubeData != null && !setupdone)
 		{
 			setupCube();
 		}
+		
 		for ( bomb in CubeData.bombs)
 		{
 			var b:BombV = bombs[bomb.x][bomb.y][bomb.z];
 			if (b == null)
 			{
 				b = new BombV();
-				this.cube.add(b);
+				this.itemcontainer.add(b);
 				b.x = bomb.x;
 				b.y = bomb.y;
 				b.z = bomb.z;
-				
+				b.position.x = b.x;
+				b.position.y = b.y;
+				b.position.z = b.z;
+				bombs[b.x][b.y][b.z] = b;
+				active.push(b);
 			}
 		}
+		//Clear dead ones
+		var remove:Array<BombV> = [];
+		for ( b in active)
+		{
+			var isok:Bool = CubeData.bombs.filter(function(bd:Bomb):Bool { return bd.x == b.x && bd.y == b.y && bd.z == bd.z; } ).length > 0;
+			if (!isok)
+				remove.push(b);
+		}
+		for (b in remove)
+		{
+			active.remove(b);
+			b.explode();
+		}
+		
 		super.update(ts, partial, frameTime, delta);
 	}
 	

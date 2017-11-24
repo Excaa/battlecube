@@ -77,5 +77,6 @@ class DemoMain
 	
 	public static function update(ts:TimeSig, partial:Float, frameTime:Float, delta:Float):Void
 	{
+		if (CubeData != null) trace(CubeData.bombs.length);
 	}
 }

@@ -8,7 +8,7 @@ import js.three.Object3D;
  */
 class PlayerV extends Object3D
 {
-
+	
 	public function new() 
 	{
 		super();
