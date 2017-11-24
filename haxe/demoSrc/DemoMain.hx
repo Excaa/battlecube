@@ -74,7 +74,6 @@ class DemoMain
 		/**/
 		//Load font
 		//font = untyped __js__('new THREE.Font( JSON.parse( window.demofont.substring( 65, window.demofont.length - 2 ) ));');
-		
 	}
 	
 	public static function update(ts:TimeSig, partial:Float, frameTime:Float, delta:Float):Void

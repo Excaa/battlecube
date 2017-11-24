@@ -58,7 +58,20 @@ class Demo
 	public function new() 
 	{
 		instance = this;
+		
+		var btn = Browser.document.getElementById("startGameBtn");
+		trace(btn);
+		btn.addEventListener("click", newGame);
+	
 	}
+	private function newGame(){
+		trace("new game");
+		if (parts.length == 1){
+				untyped parts[0].reset();
+		}
+		
+	}
+	
 	
 	public function getPart(name:String):Part
 	{
