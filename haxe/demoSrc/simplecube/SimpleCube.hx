@@ -1,4 +1,5 @@
 package simplecube;
+import blank.Blank;
 import blank.BombV;
 import createjs.tweenjs.Ease;
 import createjs.tweenjs.Tween;
@@ -8,6 +9,7 @@ import js.three.Geometry;
 import js.three.Mesh;
 import js.three.MeshBasicMaterial;
 import js.three.Object3D;
+import js.three.Side;
 import js.three.Vector3;
 import wl.core.Part;
 import wl.core.TimeSig;
@@ -56,7 +58,7 @@ class SimpleCube extends Part
 	private function setup(setupdata:Setup):Void{
 		trace("setup");
 		var size:Int = CubeData.setup.edgeLength;
-		var cube:Mesh = new Mesh(new BoxGeometry(size,size,size), new MeshBasicMaterial( { wireframe:true, color:0xffffff } ));
+		var cube:Mesh = new Mesh(new BoxGeometry(size,size,size), Blank.getMaterial());
 		this.itemContainer = new Object3D();
 		itemContainer.position.x = -size / 2;
 		itemContainer.position.y = -size / 2;
@@ -89,8 +91,8 @@ class SimpleCube extends Part
 		}
 		this.camera.fov = 60;
 		this.camera.updateProjectionMatrix();
-		this.camera.position.z = gridsize * 1;
-		this.camera.position.x = gridsize * 1;
+		this.camera.position.z = gridsize * 0.7;
+		this.camera.position.x = gridsize * 0.7;
 		this.camera.position.y = gridsize * 1;
 		this.camera.lookAt(new Vector3(0,0,0));
 		
@@ -172,9 +174,9 @@ class SimpleCube extends Part
 		this.postProcessing.distortedTV.offsetAmount = 10 * explosions;
 		explosions /= 1.2;
 		
-		var time:Float = Date.now().getTime() / 1000;
-		this.camera.position.x = Math.sin(time)*CubeData.setup.edgeLength;
-		this.camera.position.z = Math.cos(time)*CubeData.setup.edgeLength;
+		var time:Float = Date.now().getTime() / 5000;
+		this.camera.position.x = Math.sin(time)*CubeData.setup.edgeLength*0.7;
+		this.camera.position.z = Math.cos(time)*CubeData.setup.edgeLength*0.7;
 		this.camera.lookAt(new Vector3());
 	}
 	

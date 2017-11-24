@@ -1,10 +1,14 @@
 package blank;
 
+import haxe.Resource;
 import haxe.ds.Vector;
 import js.three.BoxGeometry;
 import js.three.Mesh;
 import js.three.MeshBasicMaterial;
 import js.three.Object3D;
+import js.three.ShaderMaterial;
+import js.three.ShaderMaterialParameters;
+import js.three.Side;
 import js.three.Vector3;
 import wl.core.Part;
 import wl.core.TimeSig;
@@ -118,5 +122,41 @@ class Blank extends Part
 	
 	override public function render(ts:TimeSig, frameTime:Float):Void {
 		super.render(ts, frameTime);
+	}
+		public static function getMaterial():ShaderMaterial
+	{
+		var params:ShaderMaterialParameters = { };
+		params.fragmentShader = Resource.getString("LinePlane.frag");
+		params.vertexShader = Resource.getString("LinePlane.vert");
+		trace("SHADERS");
+		trace(params.fragmentShader);
+		params.uniforms = { 
+			fftMap: { type:"t", value:null },
+			time: { type:"f", value:0 },
+			speed: { type:"f", value:0 },
+			mountains: { type:"f", value:0 },
+			fft: { type:"f2", value:[1, 1] },
+			wallX: { type:"f", value:0.042 },
+			sizeX: { type:"f", value:0.2*0.25 },
+			
+			wallY: { type:"f", value:0.042 },
+			sizeY: {type:"f", value:0.2}
+		};
+		var mat:ShaderMaterial = new ShaderMaterial(params);
+		mat.side = Side.BackSide;
+		Blank.mat = mat;
+		return mat;
+	}
+	public static var mat:ShaderMaterial;
+	public static function updatemat():Void
+	{
+		if (mat != null)
+		{
+			mat.uniforms.sizeX.value = 0.5/ CubeData.setup.edgeLength;
+			mat.uniforms.sizeY.value = 0.5 / CubeData.setup.edgeLength;
+			mat.uniforms.wallX.value = 0.2 / CubeData.setup.edgeLength;
+			mat.uniforms.wallY.value = 0.2 / CubeData.setup.edgeLength;
+			
+		}
 	}
 }

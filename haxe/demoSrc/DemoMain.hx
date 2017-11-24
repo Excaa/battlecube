@@ -66,7 +66,7 @@ class DemoMain
 		Config.SHADOW_MAP_SIZE = [2048,2048];
 		
 		Config.ENABLE_FFT = true;
-
+		
 		Config.TIMELINE = [
 			new TimeLine(new SimpleCube(), new TimeSig(0), new TimeSig(0), "blank", true),
 			//new TimeLine(new Blank(), new TimeSig(0), new TimeSig(0), "blank", true),
@@ -78,6 +78,6 @@ class DemoMain
 	
 	public static function update(ts:TimeSig, partial:Float, frameTime:Float, delta:Float):Void
 	{
-		if (CubeData != null) trace(CubeData.bombs.length);
+		Blank.updatemat();
 	}
 }

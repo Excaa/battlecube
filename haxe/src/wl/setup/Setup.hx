@@ -111,7 +111,7 @@ class Setup
 			else if(lockAspect && h<w*1/ratio)
 				w =cast h * ratio;
 		}
-		Config.RESOLUTION[0] = 1280;
+		Config.RESOLUTION[0] = 720;
 		Config.RESOLUTION[1] = 720;
 		
 		
