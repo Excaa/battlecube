@@ -29,7 +29,7 @@ class BombV extends Object3D
 	{
 		super();
 		if(geo ==null)
-			geo = new TorusGeometry(0.5, 0.2);
+			geo = new TorusGeometry(0.25, 0.05);
 		if(mat == null)
 			mat = new MeshBasicMaterial( { color:0xff0000,transparent:true } );
 			

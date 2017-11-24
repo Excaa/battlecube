@@ -54,6 +54,8 @@ class DemoMain
 		untyped Browser.window.cubeData = null;
 		//This is called before preloading and other stuff. This should setup the config variables.
 		Config.BEATS_PER_MINUTE = 173;
+		Config.RESOLUTION[0] = 720;
+		Config.RESOLUTION[1] = 720;
 		
 		//Config.MUSIC_BEGIN = 5200;
 		Config.MUSIC_BEGIN = 0;

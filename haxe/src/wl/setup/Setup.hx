@@ -92,7 +92,7 @@ class Setup
 		hideSetup();
 		
 		//Default is 720p
-		var w:Int = 1280;
+		var w:Int = 720;
 		var h:Int = 720;
 		if(resolutionType == "b")
 		{
