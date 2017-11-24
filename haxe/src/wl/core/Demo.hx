@@ -4,6 +4,7 @@ import createjs.tweenjs.Tween;
 import haxe.Timer;
 import haxe.ds.StringMap;
 import js.Browser;
+import js.html.ButtonElement;
 import js.jquery.JQuery;
 import js.html.Element;
 import js.three.BoxGeometry;
@@ -54,15 +55,12 @@ class Demo
 	
 	private var waitingFirstFrame:Bool = true;
 	private var startTime:Float;
+	private var startbtn:Dynamic;
 	
 	public function new() 
 	{
 		instance = this;
-		
-		var btn = Browser.document.getElementById("startGameBtn");
-		trace(btn);
-		btn.addEventListener("click", newGame);
-	
+				
 	}
 	private function newGame(){
 		trace("new game");
@@ -195,6 +193,12 @@ class Demo
 	private var previousRts:Part;
 	private function onRender(time:Float):Void
 	{
+		var btn = Browser.document.getElementById("startGameBtn");
+		
+		if (btn != null && startbtn == null){
+			startbtn = btn;
+			btn.addEventListener("click", newGame);
+		}
 		//Render related stuff
 		this.graphics.renderer.clear();
 		//Tween updates

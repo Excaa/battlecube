@@ -29,8 +29,9 @@ class SimpleCubePlayer extends Object3D
 	}
 	
 	public function die():Void{
-		trace("Die");
 		if (alive){
+	
+			trace("Die");
 			alive = false;
 			Tween.get(playermesh.scale).to({x:0.1, y:0.1, z:0.1}, 500);
 		}
